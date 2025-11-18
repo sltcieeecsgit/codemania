@@ -8,6 +8,11 @@ import Perks from "@/components/perks";
 import PlatformMetrics from "@/components/platform-metrics";
 import Faq from "@/components/faq";
 
+export const metadata = {
+  title: "Codemania - Home",
+  description: "Welcome to Codemania website",
+};
+
 export default function HomePage() {
   return (
     <main className="w-full min-h-screen bg-[#101010] text-white overflow-x-hidden">
