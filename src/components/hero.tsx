@@ -28,7 +28,7 @@ const Hero = () => {
 
             <AnimationContainer animation="fadeUp" delay={0.4}>
               <h1 className="text-5xl lg:text-6xl font-medium !leading-tight text-transparent bg-clip-text bg-gradient-to-r from-foreground to-neutral-500">
-                Effortless Real Estate Trading
+                Hello
               </h1>
             </AnimationContainer>
 
