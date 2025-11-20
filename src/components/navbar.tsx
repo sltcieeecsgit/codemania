@@ -1,6 +1,5 @@
 "use client";
 
-import { NAV_LINKS } from "@/constants";
 import { useClickOutside } from "@/hooks";
 import { cn } from "@/lib";
 import { AnimatePresence, motion, useMotionValueEvent, useScroll } from "framer-motion";
@@ -10,6 +9,14 @@ import { RefObject, useRef, useState } from "react";
 import AnimationContainer from "./global/animation-container";
 import Wrapper from "./global/wrapper";
 import Image from "next/image";
+
+const NAV_LINKS = [
+  { name: "Home", link: "/" },
+  { name: "About Us", link: "/about" },
+  { name: "Timeline", link: "/timeline" },
+  { name: "Rules & Prizes", link: "/rules-prizes" },
+  { name: "Shop", link: "/shop" },
+];
 
 const Navbar = () => {
   const desktopRef = useRef<HTMLDivElement | null>(null);
@@ -47,11 +54,11 @@ const Navbar = () => {
         className={cn(
           "hidden lg:flex bg-transparent self-start items-center justify-between py-4 rounded-full relative z-[50] mx-auto w-full backdrop-blur",
           visible &&
-            "bg-background/60 py-2 border border-t-foreground/20 border-b-foreground/10 border-x-foreground/15 w-full"
+            "bg-background/60 border border-t-foreground/20 border-b-foreground/10 border-x-foreground/15 w-full"
         )}
       >
         <Wrapper className="flex items-center justify-between lg:px-4">
-          {/* Desktop Logo */}
+          {/* Logo - Larger size */}
           <motion.div
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
@@ -61,15 +68,14 @@ const Navbar = () => {
               <Image
                 src="/images/Logo 01.png"
                 alt="Codemania Logo"
-                width={120}
-                height={40}
+                width={140} // Larger logo
+                height={50}
                 className="object-contain"
-                priority
               />
             </Link>
           </motion.div>
 
-          {/* Desktop Links */}
+          {/* Links */}
           <div className="hidden lg:flex flex-row flex-1 absolute inset-0 items-center justify-center w-max mx-auto gap-x-2 text-sm text-muted-foreground font-medium">
             <AnimatePresence>
               {NAV_LINKS.map((link, index) => (
@@ -86,6 +92,21 @@ const Navbar = () => {
               ))}
             </AnimatePresence>
           </div>
+
+          {/* Register Now Button, spaced further */}
+          <motion.div
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.3, delay: 0.7 }}
+            className="ml-8 hidden lg:block" // Increased margin-left
+          >
+            <Link
+              href="/register"
+              className="bg-gradient-to-r from-orange-600 via-orange-500 to-orange-400 text-white rounded-md px-6 py-2 shadow-md hover:from-orange-700 hover:via-orange-600 hover:to-orange-700 transition-all duration-300"
+            >
+              Register Now
+            </Link>
+          </motion.div>
         </Wrapper>
       </motion.div>
 
@@ -110,41 +131,32 @@ const Navbar = () => {
         )}
       >
         <Wrapper className="flex items-center justify-between lg:px-4">
-          <div className="flex items-center justify-between gap-x-4 w-full">
-            {/* Mobile Logo */}
-            <AnimationContainer animation="fadeRight" delay={0.1}>
-              <Link href="/">
-                <Image
-                  src="/images/Logo 01.png"
-                  alt="Codemania Logo"
-                  width={100}
-                  height={30}
-                  className="object-contain"
-                  priority
-                />
-              </Link>
-            </AnimationContainer>
+          {/* Logo - Larger size for mobile */}
+          <AnimationContainer animation="fadeRight" delay={0.1}>
+            <Link href="/">
+              <Image
+                src="/images/Logo 01.png"
+                alt="Codemania Logo"
+                width={140}
+                height={58}
+                className="object-contain"
+              />
+            </Link>
+          </AnimationContainer>
 
-            {/* Mobile Menu Button */}
-            <AnimationContainer animation="fadeLeft" delay={0.1}>
-              <div className="flex items-center justify-center gap-x-4">
-                {open ? (
-                  <XIcon
-                    className="text-black dark:text-white cursor-pointer"
-                    onClick={() => setOpen(false)}
-                  />
-                ) : (
-                  <MenuIcon
-                    className="text-black dark:text-white cursor-pointer"
-                    onClick={() => setOpen(true)}
-                  />
-                )}
-              </div>
-            </AnimationContainer>
-          </div>
+          {/* Hamburger menu */}
+          <AnimationContainer animation="fadeLeft" delay={0.1}>
+            <div className="flex items-center justify-center gap-x-4">
+              {open ? (
+                <XIcon className="text-black dark:text-white cursor-pointer" onClick={() => setOpen(false)} />
+              ) : (
+                <MenuIcon className="text-black dark:text-white cursor-pointer" onClick={() => setOpen(true)} />
+              )}
+            </div>
+          </AnimationContainer>
         </Wrapper>
 
-        {/* Mobile Links */}
+        {/* Mobile Links + Register Button + Gap adjustment */}
         <AnimatePresence>
           {open && (
             <motion.div
@@ -152,14 +164,13 @@ const Navbar = () => {
               initial={{ opacity: 0, y: -10 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -10 }}
-              className="flex rounded-b-xl absolute top-16 bg-neutral-950 inset-x-0 z-50 flex-col items-start justify-start gap-2 w-full px-4 py-8 shadow-xl shadow-neutral-950"
+              className="flex rounded-b-xl absolute top-16 bg-neutral-950 inset-x-0 z-50 flex-col items-start justify-start gap-4 w-full px-4 py-8 shadow-xl shadow-neutral-950"
             >
-              {NAV_LINKS.map((navItem: any, idx: number) => (
+              {NAV_LINKS.map((navItem, idx) => (
                 <AnimationContainer
                   key={`link=${idx}`}
                   animation="fadeRight"
                   delay={0.1 * (idx + 1)}
-                  className="w-full"
                 >
                   <Link
                     href={navItem.link}
@@ -170,6 +181,17 @@ const Navbar = () => {
                   </Link>
                 </AnimationContainer>
               ))}
+
+              {/* Register Now Button for mobile */}
+              <AnimationContainer animation="fadeUp" delay={0.1 * (NAV_LINKS.length + 1)}>
+                <Link
+                  href="/register"
+                  onClick={() => setOpen(false)}
+                  className="bg-gradient-to-r from-orange-600 via-orange-500 to-orange-400 text-white rounded-md px-4 py-1.5 text-sm w-full text-center mt-4 shadow-md hover:from-orange-700 hover:via-orange-600 hover:to-orange-700 transition-all duration-300"
+                >
+                  Register Now
+                </Link>
+              </AnimationContainer>
             </motion.div>
           )}
         </AnimatePresence>
