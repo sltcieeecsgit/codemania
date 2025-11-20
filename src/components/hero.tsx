@@ -18,15 +18,12 @@ interface TimeLeft {
 }
 
 const Countdown = () => {
-  // Fixed target date: February 2, 2026 (month is zero-indexed)
   const [targetDate] = useState(() => new Date(2026, 1, 2));
 
   const calculateTimeLeft = (): TimeLeft => {
     const now = new Date();
     const difference = targetDate.getTime() - now.getTime();
-
     if (difference <= 0) return {};
-
     return {
       days: Math.floor(difference / (1000 * 60 * 60 * 24)),
       hours: Math.floor((difference / (1000 * 60 * 60)) % 24),
@@ -52,49 +49,49 @@ const Countdown = () => {
   if (!mounted) return null;
 
   return (
-    <div className="font-mono text-3xl sm:text-5xl md:text-7xl flex flex-wrap items-center gap-2 sm:gap-6 md:gap-8 tracking-widest text-orange-500 drop-shadow-lg select-none">
+    <div className="font-mono text-3xl sm:text-4xl md:text-5xl lg:text-7xl flex flex-row flex-wrap justify-center md:justify-start items-center gap-2 sm:gap-4 md:gap-6 tracking-widest text-orange-500 drop-shadow-lg select-none">
       {Object.keys(timeLeft).length ? (
         <>
           {/* days */}
           <div className="flex flex-col items-center">
             <span>{format(timeLeft.days)}</span>
-            <span className="text-[9px] sm:text-sm text-gray-400 uppercase mt-1">
+            <span className="text-[9px] sm:text-xs md:text-sm text-gray-400 uppercase mt-1">
               days
             </span>
           </div>
 
-          <span className="opacity-50 mb-3 sm:mb-6">:</span>
+          <span className="opacity-50 mb-1 sm:mb-2 md:mb-3">:</span>
 
           {/* hours */}
           <div className="flex flex-col items-center">
             <span>{format(timeLeft.hours)}</span>
-            <span className="text-[9px] sm:text-sm text-gray-400 uppercase mt-1">
+            <span className="text-[9px] sm:text-xs md:text-sm text-gray-400 uppercase mt-1">
               hours
             </span>
           </div>
 
-          <span className="opacity-50 mb-3 sm:mb-6">:</span>
+          <span className="opacity-50 mb-1 sm:mb-2 md:mb-3">:</span>
 
           {/* minutes */}
           <div className="flex flex-col items-center">
             <span>{format(timeLeft.minutes)}</span>
-            <span className="text-[9px] sm:text-sm text-gray-400 uppercase mt-1">
+            <span className="text-[9px] sm:text-xs md:text-sm text-gray-400 uppercase mt-1">
               mins
             </span>
           </div>
 
-          <span className="opacity-50 mb-3 sm:mb-6">:</span>
+          <span className="opacity-50 mb-1 sm:mb-2 md:mb-3">:</span>
 
           {/* seconds */}
           <div className="flex flex-col items-center">
             <span>{format(timeLeft.seconds)}</span>
-            <span className="text-[9px] sm:text-sm text-gray-400 uppercase mt-1">
+            <span className="text-[9px] sm:text-xs md:text-sm text-gray-400 uppercase mt-1">
               secs
             </span>
           </div>
         </>
       ) : (
-        <div className="text-2xl md:text-5xl">Hackathon Started!</div>
+        <div className="text-2xl md:text-4xl lg:text-5xl">Hackathon Started!</div>
       )}
     </div>
   );
