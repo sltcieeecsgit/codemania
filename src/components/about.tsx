@@ -2,6 +2,7 @@
 
 import { ArrowRightIcon } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 import AnimationContainer from "./global/animation-container";
 import Wrapper from "./global/wrapper";
 import { Button } from "./ui/button";
@@ -56,14 +57,19 @@ const ABOUT = () => {
 
           <AnimationContainer animation="fadeUp" delay={0.4}>
             <h2 className="text-3xl md:text-5xl lg:text-6xl font-medium !leading-tight text-transparent bg-clip-text bg-gradient-to-b from-foreground to-neutral-400">
-              Showcase Your Coding Skills
+              About Codemania v6.0
             </h2>
           </AnimationContainer>
 
           <AnimationContainer animation="fadeUp" delay={0.5}>
-            <p className="text-sm md:text-base lg:text-lg text-muted-foreground max-w-lg mx-auto mt-4">
-              Codemania v5.0 is a 12-hour-long algorithmic coding hackathon organized by the IEEE Computer Society Student Branch Chapter of SLTC. Compete in-person to tackle diverse and challenging coding problems, gain professional growth opportunities in IT, and win prestigious awards celebrating outstanding talent.
-            </p>
+            <div className="text-sm md:text-base lg:text-lg text-muted-foreground max-w-5xl mx-auto mt-4 space-y-4">
+              <p>
+                Codemania v6.0 is an inter-university datathon organized by the IEEE Computer Society Student Branch Chapter of SLTC, designed to challenge undergraduates across Sri Lanka in data-driven problem solving.
+              </p>
+              <p>
+                The competition combines skill-building workshops, a virtual qualifier, and a 12-hour on-site grand finale, pushing teams to analyze real-world datasets, apply machine learning concepts, and deliver impactful solutions under pressure.
+              </p>
+            </div>
           </AnimationContainer>
 
           <AnimationContainer animation="fadeUp" delay={0.6}>
@@ -92,16 +98,12 @@ const ABOUT = () => {
           </AnimationContainer>
 
           <AnimationContainer animation="fadeUp" delay={1}>
-            <a
-              href="https://forms.gle/YOUR_GOOGLE_FORM_LINK" // Replace with your actual Google Form link
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <Button size="lg" className="mt-6 flex items-center justify-center gap-2">
+            <Link href="/register">
+              <Button size="lg" className="mt-6 flex items-center justify-center gap-2 rounded-xl bg-orange-600 hover:bg-orange-700">
                 Register Now
                 <ArrowRightIcon className="size-4" />
               </Button>
-            </a>
+            </Link>
           </AnimationContainer>
         </div>
       </div>

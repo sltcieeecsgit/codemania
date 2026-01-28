@@ -11,10 +11,11 @@ import Image from "next/image";
 
 const NAV_LINKS = [
   { name: "Home", link: "/" },
-  { name: "About Us", link: "#about" },
+  { name: "About", link: "#about" },
   { name: "Timeline", link: "#timeline" },
-  { name: "Rules & Prizes", link: "#rules" },
-  { name: "Shop", link: "#shop" },
+  { name: "Workshops", link: "#workshops" },
+  { name: "Prizes", link: "#prizes" },
+  { name: "Contact", link: "#contact" },
 ];
 
 const Navbar = () => {
@@ -26,10 +27,7 @@ const Navbar = () => {
     if (open) setOpen(false);
   });
 
-  const { scrollY } = useScroll({
-    target: desktopRef as RefObject<HTMLDivElement>,
-    offset: ["start start", "end start"],
-  });
+  const { scrollY } = useScroll();
 
   useMotionValueEvent(scrollY, "change", (latest) => {
     setVisible(latest > 100);
@@ -54,15 +52,30 @@ const Navbar = () => {
       {/* Desktop Navbar */}
       <motion.div
         ref={desktopRef}
-        animate={{ width: visible ? "40%" : "100%", y: visible ? 20 : 0 }}
-        transition={{ type: "spring", stiffness: 200, damping: 40 }}
-        style={{ minWidth: "800px" }}
-        className={cn(
-          "hidden lg:flex bg-transparent self-start items-center justify-between py-4 rounded-full relative z-[50] mx-auto w-full backdrop-blur",
-          visible && "bg-background/60 border border-t-foreground/20 border-b-foreground/10 border-x-foreground/15 w-full"
-        )}
+        layout
+        initial={false}
+        animate={{
+          width: visible ? "75%" : "100%",
+          y: visible ? 20 : 0,
+          backgroundColor: visible ? "rgba(0, 0, 0, 0.9)" : "rgba(0, 0, 0, 0)",
+          borderWidth: visible ? "1px" : "0px",
+          borderColor: "rgba(255, 255, 255, 0.1)",
+          boxShadow: visible ? "0 0 40px rgba(0, 0, 0, 0.8)" : "none",
+          paddingLeft: visible ? "2rem" : "0rem",
+          paddingRight: visible ? "2rem" : "0rem",
+        }}
+        transition={{
+          type: "spring",
+          stiffness: 90,
+          damping: 20,
+          mass: 1
+        }}
+        className="hidden lg:flex self-start items-center justify-between py-2 rounded-full relative z-[50] mx-auto backdrop-blur-2xl min-w-[850px]"
       >
-        <Wrapper className="flex items-center justify-between lg:px-4">
+        <div className={cn(
+          "flex items-center justify-between w-full mx-auto",
+          visible ? "gap-12" : "lg:max-w-screen-xl px-4 lg:px-20"
+        )}>
           {/* Logo */}
           <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.3 }}>
             <Link href="/" className="flex items-center gap-2">
@@ -71,7 +84,10 @@ const Navbar = () => {
           </motion.div>
 
           {/* Desktop Links */}
-          <div className="hidden lg:flex flex-row flex-1 absolute inset-0 items-center justify-center w-max mx-auto gap-x-2 text-sm text-muted-foreground font-medium">
+          <div className={cn(
+            "hidden lg:flex flex-row items-center justify-center gap-x-2 text-sm text-muted-foreground font-medium",
+            !visible && "flex-1 absolute inset-0 w-max mx-auto"
+          )}>
             <AnimatePresence>
               {NAV_LINKS.map((link, index) => (
                 <motion.div
@@ -93,15 +109,15 @@ const Navbar = () => {
           </div>
 
           {/* Register Button */}
-          <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.3, delay: 0.7 }} className="ml-8 hidden lg:block">
+          <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.3, delay: 0.7 }} className="hidden lg:block">
             <Link
               href="/register"
-              className="bg-gradient-to-r from-orange-600 via-orange-500 to-orange-400 text-white rounded-md px-6 py-2 shadow-md hover:from-orange-700 hover:via-orange-600 hover:to-orange-700 transition-all duration-300"
+              className="bg-gradient-to-r from-orange-600 via-orange-500 to-orange-400 text-white rounded-md px-6 py-2 shadow-md hover:from-orange-700 hover:via-orange-600 hover:to-orange-700 transition-all duration-300 whitespace-nowrap"
             >
               Register Now
             </Link>
           </motion.div>
-        </Wrapper>
+        </div>
       </motion.div>
 
       {/* Mobile Navbar */}
@@ -115,9 +131,9 @@ const Navbar = () => {
         }}
         transition={{ type: "spring", stiffness: 200, damping: 50 }}
         className={cn(
-          "flex relative flex-col lg:hidden w-full justify-between items-center mx-auto py-4 z-50",
-          visible && "bg-neutral-950 w-11/12 border",
-          open && "border-transparent"
+          "flex relative flex-col lg:hidden w-full justify-between items-center mx-auto py-4 z-50 transition-all duration-300",
+          visible && "bg-black/80 backdrop-blur-lg w-11/12 border border-white/10 rounded-2xl px-4 mt-2",
+          open && "bg-neutral-950 border-transparent w-full mt-0 rounded-none"
         )}
       >
         <Wrapper className="flex items-center justify-between lg:px-4">

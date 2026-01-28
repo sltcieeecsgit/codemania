@@ -5,11 +5,11 @@ import AnimationContainer from './global/animation-container';
 import Wrapper from "./global/wrapper";
 
 const QUICK_LINKS = [
-    { label: "About Us", href: "#" },
-    { label: "Roadmap", href: "#" },
-    { label: "Merchandise", href: "#" },
-    { label: "Contact Us", href: "#" },
-    { label: "Follow Us", href: "#" },
+    { label: "About", href: "#about" },
+    { label: "Timeline", href: "#timeline" },
+    { label: "Workshops", href: "#workshops" },
+    { label: "Prizes", href: "#prizes" },
+    { label: "Register", href: "/register" },
 ];
 
 const SOCIAL_LINKS = [
@@ -22,91 +22,72 @@ const SOCIAL_LINKS = [
 
 const Footer = () => {
     return (
-        <footer className="relative border-t border-border pt-16 pb-8 md:pb-0 w-full overflow-hidden">
+        <footer className="relative border-t border-white/5 pt-16 pb-8 w-full overflow-hidden bg-black">
             <Wrapper>
-                <AnimationContainer animation="scaleUp" delay={0.2}>
-                    <div className="absolute -top-1/8 lg:-top-1/2 inset-x-0 mx-auto bg-primary/50 lg:bg-primary/70 rounded-full w-1/2 h-1/4 blur-[6rem] lg:blur-[12rem]"></div>
-                </AnimationContainer>
-
-                <AnimationContainer animation="scaleUp" delay={0.3}>
-                    <div className="absolute top-0 w-4/5 mx-auto inset-x-0 h-px bg-gradient-to-r from-primary/0 via-primary/80 to-primary/0"></div>
-                </AnimationContainer>
-
-                <div className="grid gap-8 xl:grid-cols-3 xl:gap-8">
+                <div className="grid gap-12 xl:grid-cols-3">
                     <AnimationContainer animation="fadeRight" delay={0.4}>
-                        <div className="flex flex-col items-start justify-start md:max-w-[300px]">
+                        <div className="flex flex-col items-start justify-start md:max-w-[400px]">
                             <div className="flex items-center gap-2">
                                 <Image
-                                    src="/icons/icon.svg"
-                                    alt="CloudSpace"
-                                    width={32}
-                                    height={32}
+                                    src="/images/Logo 01.png"
+                                    alt="Codemania Logo"
+                                    width={140}
+                                    height={50}
+                                    className="object-contain"
                                 />
-                                <span className="text-lg lg:text-xl font-medium">
-                                    Codemania
-                                </span>
                             </div>
-                            <p className="text-muted-foreground mt-4 text-sm">
-                                Sri Lanka Technology Campus
+                            <p className="text-gray-400 mt-6 text-sm leading-relaxed">
+                                Decode the Data. Dominate the Challenge.
                                 <br />
-                                Colombo, Sri Lanka
+                                Organized by IEEE Computer Society Student Branch Chapter of SLTC.
                             </p>
-                            <div className="mt-4 text-sm text-muted-foreground">
-                                <p>codemania@gmail.com</p>
-                            </div>
-                            <div className="flex items-center gap-4 mt-6">
+                            <div className="flex items-center gap-4 mt-8">
                                 {SOCIAL_LINKS.map((social, index) => (
-                                    <AnimationContainer
+                                    <Link
                                         key={index}
-                                        animation="fadeUp"
-                                        delay={0.6 + index * 0.1}
+                                        href={social.href}
+                                        className="text-gray-400 hover:text-orange-500 transition-colors bg-white/5 p-2 rounded-lg"
                                     >
-                                        <Link
-                                            href={social.href}
-                                            className="text-muted-foreground hover:text-primary transition-colors"
-                                        >
-                                            <social.icon className="size-5" />
-                                        </Link>
-                                    </AnimationContainer>
+                                        <social.icon className="size-5" />
+                                    </Link>
                                 ))}
                             </div>
                         </div>
                     </AnimationContainer>
 
                     <div className="grid grid-cols-2 gap-8 xl:col-span-2">
-                        <AnimationContainer animation="fadeUp" delay={0.5}>
-                            <div>
-                                <h3 className="text-base font-medium">Quick Links</h3>
-                                <ul className="mt-4 space-y-2 text-sm text-muted-foreground">
-                                    {QUICK_LINKS.map((link, index) => (
-                                        <AnimationContainer
-                                            key={index}
-                                            animation="fadeLeft"
-                                            delay={0.6 + index * 0.1}
+                        <div>
+                            <h3 className="text-white font-bold mb-6">Quick Links</h3>
+                            <ul className="space-y-4 text-sm text-gray-400">
+                                {QUICK_LINKS.map((link, index) => (
+                                    <li key={index}>
+                                        <Link
+                                            href={link.href}
+                                            className="hover:text-orange-500 transition-colors"
                                         >
-                                            <li>
-                                                <Link
-                                                    href={link.href}
-                                                    className="hover:text-foreground transition-colors"
-                                                >
-                                                    {link.label}
-                                                </Link>
-                                            </li>
-                                        </AnimationContainer>
-                                    ))}
-                                </ul>
-                            </div>
-                        </AnimationContainer>
+                                            {link.label}
+                                        </Link>
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
+
+                        <div>
+                            <h3 className="text-white font-bold mb-6">Contact</h3>
+                            <p className="text-sm text-gray-400">
+                                Have questions?
+                                <br />
+                                <a href="mailto:cit-24-01-0251@sltc.ac.lk" className="text-orange-500 hover:underline">Reach out to us</a>
+                            </p>
+                        </div>
                     </div>
                 </div>
 
-                <AnimationContainer animation="fadeUp" delay={1}>
-                    <div className="mt-16 border-t border-border/40 py-8 flex flex-col md:flex-row items-center justify-center">
-                        <p className="text-sm text-muted-foreground">
-                            © 2026 Codemania. All rights reserved.
-                        </p>
-                    </div>
-                </AnimationContainer>
+                <div className="mt-16 border-t border-white/5 pt-8 flex flex-col md:flex-row items-center justify-between gap-4">
+                    <p className="text-xs text-gray-500">
+                        © 2026 Codemania v6.0. All rights reserved.
+                    </p>
+                </div>
             </Wrapper>
         </footer>
     );

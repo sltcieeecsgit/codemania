@@ -5,47 +5,50 @@ import SectionBadge from './ui/section-badge';
 const TIMELINE = () => {
     const timelineData = [
         {
-            title: "Registration Opens",
-            date: "January 3, 2026"
+            title: "Registrations & Promotions",
+            date: "January 30",
+            phase: "Phase 01"
         },
         {
-            title: "Registration Closes",
-            date: "January 28, 2026"
+            title: "Training Workshops",
+            date: "February 11",
+            phase: "Phase 02"
         },
         {
-            title: "Competition",
-            date: "February 1 - February 2, 2026"
+            title: "Virtual Datathon (Qualifier)",
+            date: "February 21",
+            phase: "Phase 03"
         },
         {
-            title: "Results Announcement",
-            date: "February 2, 2026"
+            title: "Physical Grand Finale",
+            date: "Feb 28 – Mar 1",
+            phase: "Phase 04"
+        },
+        {
+            title: "Award Ceremony",
+            date: "March 1",
+            phase: "Phase 05"
         }
     ];
 
     return (
         <Wrapper className="py-20 lg:py-32">
             {/* Header */}
-            <div className="flex flex-col items-center text-center gap-4 mb-16">
+            <div className="flex flex-col items-center text-center gap-4 mb-24">
                 <AnimationContainer animation="fadeUp" delay={0.2}>
                     <SectionBadge title="Event Timeline" />
                 </AnimationContainer>
 
                 <AnimationContainer animation="fadeUp" delay={0.3}>
-                    <h2 className="text-2xl md:text-4xl lg:text-5xl font-medium !leading-tight text-transparent bg-clip-text bg-gradient-to-b from-foreground to-neutral-400">
-                        Key Dates for Codemania v5.0
+                    <h2 className="text-3xl md:text-5xl font-medium mt-4 text-transparent bg-clip-text bg-gradient-to-b from-foreground to-neutral-400">
+                        From Learning to the Final Datathon.
                     </h2>
-                </AnimationContainer>
-
-                <AnimationContainer animation="fadeUp" delay={0.4}>
-                    <p className="text-sm md:text-base lg:text-lg text-muted-foreground max-w-2xl mx-auto">
-                        Stay on track and don’t miss any important event milestones.
-                    </p>
                 </AnimationContainer>
             </div>
 
             {/* Timeline pipeline */}
             <div className="relative flex flex-col lg:flex-row items-center justify-between gap-12 lg:gap-0">
-                
+
                 {/* Horizontal connecting line for large screens */}
                 <div className="hidden lg:block absolute top-1/2 left-4 right-4 h-1 bg-gradient-to-r from-primary to-orange-400 -z-10 rounded-full"></div>
 
@@ -56,7 +59,8 @@ const TIMELINE = () => {
                             <div className="w-8 h-8 rounded-full bg-gradient-to-b from-primary to-orange-400 border-4 border-neutral-900 mb-4 shadow-lg"></div>
 
                             {/* Card / info box */}
-                            <div className="bg-[#191919] backdrop-blur-3xl rounded-3xl p-6 md:p-8 min-h-[150px] flex flex-col justify-center items-center text-center shadow-lg max-w-xs">
+                            <div className="bg-[#191919] border border-white/5 backdrop-blur-3xl rounded-3xl p-6 md:p-8 min-h-[160px] flex flex-col justify-center items-center text-center shadow-lg max-w-xs hover:border-orange-500/30 transition-colors duration-300">
+                                <span className="text-orange-500 text-xs font-bold uppercase mb-2">{item.phase}</span>
                                 <h3 className="text-lg md:text-xl font-medium text-white">{item.title}</h3>
                                 <p className="text-sm md:text-base text-muted-foreground mt-2">{item.date}</p>
                             </div>

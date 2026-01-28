@@ -1,16 +1,19 @@
-// src/app/page.tsx
 import Navbar from "@/components/navbar";
 import Hero from "@/components/hero";
 import ABOUT from "@/components/about";
 import TIMELINE from "@/components/timeline";
-import RULES from "@/components/rules";
-import SHOP from "@/components/shop";
+import Stats from "@/components/stats";
+import Prizes from "@/components/prizes";
+import Workshops from "@/components/workshops";
+import Partners from "@/components/partners";
+import Portals from "@/components/portals";
+import Contact from "@/components/contact";
 import Footer from "@/components/footer";
 
 
 export const metadata = {
-  title: "Codemania - Home",
-  description: "Welcome to Codemania website",
+  title: "Codemania v6.0 - Island-wide Datathon",
+  description: "Decode the Data. Dominate the Challenge. Join Codemania v6.0, the ultimate datathon for undergraduates in Sri Lanka.",
 };
 
 export default function HomePage() {
@@ -30,12 +33,28 @@ export default function HomePage() {
         <TIMELINE />
       </section>
 
-      <section id="rules">
-        <RULES />
+      <section id="stats">
+        <Stats />
       </section>
 
-      <section id="shop">
-        <SHOP />
+      <section id="workshops">
+        <Workshops />
+      </section>
+
+      <section id="prizes">
+        <Prizes />
+      </section>
+
+      <section id="partners">
+        <Partners />
+      </section>
+
+      <section id="portals">
+        <Portals />
+      </section>
+
+      <section id="contact">
+        <Contact />
       </section>
 
       <section id="footer">

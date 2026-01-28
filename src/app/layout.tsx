@@ -13,6 +13,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" suppressHydrationWarning>
+      <head>
+        <link href="https://fonts.cdnfonts.com/css/folkra" rel="stylesheet" />
+      </head>
       <body
         className={cn(
           "min-h-screen bg-[#101010] text-foreground font-base antialiased overflow-x-hidden dark",

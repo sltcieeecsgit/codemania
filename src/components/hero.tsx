@@ -5,20 +5,39 @@ import AnimationContainer from "./global/animation-container";
 import Images from "./global/images";
 import Wrapper from "./global/wrapper";
 import Marquee from "./ui/marquee";
+import Link from "next/link";
 import SectionBadge from "./ui/section-badge";
 
-// ------------------------------------------------------
-// COUNTDOWN COMPONENT
-// ------------------------------------------------------
+import NumberFlow from "@number-flow/react";
+
 interface TimeLeft {
   days?: number;
   hours?: number;
   minutes?: number;
   seconds?: number;
 }
+const CountdownUnit = ({ value, label }: { value: number | undefined; label: string }) => (
+  <div className="flex flex-col items-center px-3 sm:px-6 py-2 group cursor-default relative">
+    <div className="text-3xl sm:text-5xl lg:text-6xl font-folkra font-medium text-orange-500 tabular-nums tracking-tighter transition-all duration-500 group-hover:text-white group-hover:scale-110 drop-shadow-[0_0_15px_rgba(249,115,22,0.3)]">
+      <NumberFlow
+        value={value ?? 0}
+        format={{ minimumIntegerDigits: 2 }}
+      />
+    </div>
+    {/* Animated Underline */}
+    <div className="h-[2px] w-0 bg-white group-hover:w-full transition-all duration-700 mt-2 rounded-full" />
+
+    <span className="text-[9px] sm:text-[10px] font-normal text-gray-200 uppercase tracking-[0.3em] mt-2 transition-colors duration-300 group-hover:text-white">
+      {label}
+    </span>
+
+    {/* Subtle Glow Node */}
+    <div className="absolute top-0 right-0 w-1 h-1 bg-white/20 rounded-full group-hover:bg-white transition-colors duration-500" />
+  </div>
+);
 
 const Countdown = () => {
-  const [targetDate] = useState(() => new Date(2026, 1, 2));
+  const [targetDate] = useState(() => new Date(2026, 1, 28)); // Feb 28, 2026
 
   const calculateTimeLeft = (): TimeLeft => {
     const now = new Date();
@@ -41,57 +60,29 @@ const Countdown = () => {
       setTimeLeft(calculateTimeLeft());
     }, 1000);
     return () => clearInterval(timer);
-  }, [targetDate]);
-
-  const format = (num?: number) =>
-    num !== undefined ? num.toString().padStart(2, "0") : "00";
+  }, []);
 
   if (!mounted) return null;
 
   return (
-    <div className="font-mono text-3xl sm:text-4xl md:text-5xl lg:text-7xl flex flex-row flex-wrap justify-center md:justify-start items-center gap-2 sm:gap-4 md:gap-6 tracking-widest text-orange-500 drop-shadow-lg select-none">
+    <div className="flex flex-row items-center gap-1 sm:gap-2 select-none py-4 px-6 rounded-3xl bg-orange-500/[0.02] border border-orange-500/10 backdrop-blur-3xl shadow-[0_0_50px_rgba(249,115,22,0.05)] relative overflow-hidden group">
+      {/* Background Decorative Line */}
+      <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-orange-500/10 to-transparent" />
+
       {Object.keys(timeLeft).length ? (
         <>
-          {/* days */}
-          <div className="flex flex-col items-center">
-            <span>{format(timeLeft.days)}</span>
-            <span className="text-[9px] sm:text-xs md:text-sm text-gray-400 uppercase mt-1">
-              days
-            </span>
-          </div>
-
-          <span className="opacity-50 mb-1 sm:mb-2 md:mb-3">:</span>
-
-          {/* hours */}
-          <div className="flex flex-col items-center">
-            <span>{format(timeLeft.hours)}</span>
-            <span className="text-[9px] sm:text-xs md:text-sm text-gray-400 uppercase mt-1">
-              hours
-            </span>
-          </div>
-
-          <span className="opacity-50 mb-1 sm:mb-2 md:mb-3">:</span>
-
-          {/* minutes */}
-          <div className="flex flex-col items-center">
-            <span>{format(timeLeft.minutes)}</span>
-            <span className="text-[9px] sm:text-xs md:text-sm text-gray-400 uppercase mt-1">
-              mins
-            </span>
-          </div>
-
-          <span className="opacity-50 mb-1 sm:mb-2 md:mb-3">:</span>
-
-          {/* seconds */}
-          <div className="flex flex-col items-center">
-            <span>{format(timeLeft.seconds)}</span>
-            <span className="text-[9px] sm:text-xs md:text-sm text-gray-400 uppercase mt-1">
-              secs
-            </span>
-          </div>
+          <CountdownUnit value={timeLeft.days} label="Days" />
+          <div className="w-[1px] h-12 bg-orange-500/10 mx-1 rotate-[15deg]" />
+          <CountdownUnit value={timeLeft.hours} label="Hours" />
+          <div className="w-[1px] h-12 bg-orange-500/10 mx-1 rotate-[15deg]" />
+          <CountdownUnit value={timeLeft.minutes} label="Mins" />
+          <div className="w-[1px] h-12 bg-orange-500/10 mx-1 rotate-[15deg]" />
+          <CountdownUnit value={timeLeft.seconds} label="Secs" />
         </>
       ) : (
-        <div className="text-2xl md:text-4xl lg:text-5xl">Hackathon Started!</div>
+        <div className="text-xl md:text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-orange-500 to-orange-300 px-10 py-4">
+          Registrations are Live!
+        </div>
       )}
     </div>
   );
@@ -110,25 +101,40 @@ const Hero = () => {
     Images.comp6,
   ];
 
+  const valueProps = [
+    {
+      title: "Build Data-Driven Skills",
+      description: "Gain hands-on experience in data preprocessing, machine learning, and analytical problem solving through structured workshops and competitive challenges."
+    },
+    {
+      title: "Compete in a National Datathon",
+      description: "Battle against top undergraduate teams from universities across Sri Lanka in a two-phase competition — virtual qualifiers and a 12-hour physical grand finale."
+    },
+    {
+      title: "Earn Recognition & Rewards",
+      description: "Win from a prize pool of over LKR 60,000, earn certificates, and gain island-wide recognition for your technical excellence."
+    }
+  ];
+
   return (
     <Wrapper className="pt-20 lg:pt-32 relative min-h-screen w-full flex-1 overflow-hidden bg-[#101010]">
-      <div className="flex flex-col lg:flex-row w-full h-full lg:gap-16 px-4 sm:px-6 lg:px-0">
-        <div className="flex flex-col items-start justify-center gap-8 sm:gap-10 py-10 lg:py-16 w-full max-w-4xl mx-auto lg:mx-0">
+      <div className="flex flex-col lg:flex-row w-full h-full px-4 sm:px-6 lg:px-0 items-center justify-between">
 
+        {/* Left Content */}
+        <div className="flex flex-col items-start justify-center text-left gap-6 sm:gap-8 py-10 lg:py-16 w-full lg:w-3/5 z-10">
           <AnimationContainer animation="fadeUp" delay={0.2}>
-            <SectionBadge title="THINK TWICE, CODE ONCE" />
+            <SectionBadge title="Codemania v6.0" />
           </AnimationContainer>
 
           <AnimationContainer animation="fadeUp" delay={0.4}>
-            <h1 className="text-4xl sm:text-5xl lg:text-7xl font-extrabold leading-tight text-transparent bg-clip-text bg-gradient-to-r from-white to-gray-400">
-              Welcome to <br className="hidden sm:block" /> Hackathon 2025
+            <h1 className="text-3xl sm:text-5xl lg:text-7xl font-folkra font-normal leading-tight text-gray-300 tracking-tight">
+              Decode the Data. <br /> Dominate the Challenge.
             </h1>
           </AnimationContainer>
 
           <AnimationContainer animation="fadeUp" delay={0.6}>
-            <p className="text-base sm:text-lg text-gray-300 max-w-lg leading-relaxed">
-              Join the brightest minds to innovate, build, and revolutionize
-              tech. Don’t miss out on the most exciting hackathon of the year.
+            <p className="text-sm sm:text-lg text-gray-400 max-w-xl leading-relaxed">
+              Codemania v6.0: Where Data Meets Competition. The ultimate island-wide datathon for undergraduate innovators across Sri Lanka.
             </p>
           </AnimationContainer>
 
@@ -136,30 +142,69 @@ const Hero = () => {
             <Countdown />
           </AnimationContainer>
 
-          <AnimationContainer animation="fadeUp" delay={1}>
-            <p className="text-sm md:text-base text-gray-400 mb-4">
-              Trusted by Industry Leaders
-            </p>
+          <AnimationContainer animation="fadeUp" delay={0.9}>
+            <Link
+              href="/register"
+              className="mt-2 px-10 py-4 bg-gradient-to-r from-orange-600 to-orange-400 text-white font-bold rounded-full shadow-[0_0_20px_rgba(234,88,12,0.3)] hover:shadow-[0_0_30px_rgba(234,88,12,0.5)] hover:scale-105 transition-all duration-300 inline-block text-base"
+            >
+              Register Now
+            </Link>
+          </AnimationContainer>
+        </div>
 
-            <div className="w-full relative max-w-[90vw] sm:max-w-lg">
-              <Marquee className="[--duration:40s] [--gap:2rem] select-none">
-                {companies.map((Logo, i) => (
-                  <div
-                    key={i}
-                    className="flex items-center justify-center h-12 sm:h-16"
-                  >
-                    <Logo className="w-auto h-5 sm:h-6 opacity-70 hover:opacity-100 transition" />
-                  </div>
-                ))}
-              </Marquee>
-
-              {/* EDGE GRADIENTS */}
-              <div className="pointer-events-none absolute inset-y-0 -right-1 w-1/4 bg-gradient-to-l from-[#101010]"></div>
-              <div className="pointer-events-none absolute inset-y-0 -left-1 w-1/4 bg-gradient-to-r from-[#101010]"></div>
-            </div>
+        {/* Right Design (Image) */}
+        <div className="flex w-full lg:w-2/5 justify-center lg:justify-end relative h-[350px] sm:h-[450px] lg:h-[600px] mt-12 lg:mt-0">
+          <AnimationContainer animation="fadeUp" delay={0.5} className="w-full h-full relative">
+            <div className="absolute inset-0 bg-gradient-to-r from-[#101010] via-transparent to-transparent z-20 w-1/3 hidden lg:block"></div>
+            <div className="absolute inset-x-0 bottom-0 h-1/4 bg-gradient-to-t from-[#101010] to-transparent z-20"></div>
+            <img
+              src="/images/owl.png"
+              alt="Owl"
+              className="w-full h-full object-cover rounded-3xl opacity-30 sm:opacity-50 mix-blend-screen"
+            />
+            {/* Glowing effect following owl eyes theme */}
+            <div className="absolute top-[40%] right-[30%] w-32 h-32 bg-orange-600/20 blur-[80px] rounded-full animate-pulse"></div>
           </AnimationContainer>
         </div>
       </div>
+
+      {/* Value Propositions - now wider and slightly smaller text */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-10 md:mt-0 pb-20 w-full px-4 sm:px-6 lg:px-0">
+        {valueProps.map((prop, idx) => (
+          <AnimationContainer key={idx} animation="fadeUp" delay={1 + idx * 0.1}>
+            <div className="p-6 rounded-3xl bg-white/[0.03] border border-white/[0.08] backdrop-blur-sm hover:bg-white/[0.05] transition-all duration-300 text-left h-full">
+              <h3 className="text-lg font-normal text-orange-500 mb-2">{prop.title}</h3>
+              <p className="text-gray-400 text-xs sm:text-sm leading-relaxed">{prop.description}</p>
+            </div>
+          </AnimationContainer>
+        ))}
+      </div>
+
+      <div className="flex flex-col items-center justify-center w-full pb-20">
+        <AnimationContainer animation="fadeUp" delay={1.4} className="w-full text-center">
+          <p className="text-xs md:text-sm text-gray-500 mb-6 uppercase tracking-widest">
+            Organized by IEEE Computer Society Student Branch Chapter of SLTC
+          </p>
+
+          <div className="w-full relative mx-auto">
+            <Marquee className="[--duration:40s] [--gap:3rem] select-none">
+              {companies.map((Logo, i) => (
+                <div
+                  key={i}
+                  className="flex items-center justify-center h-12 sm:h-16"
+                >
+                  <Logo className="w-auto h-5 sm:h-7 opacity-40 hover:opacity-100 transition duration-500" />
+                </div>
+              ))}
+            </Marquee>
+
+            {/* EDGE GRADIENTS */}
+            <div className="pointer-events-none absolute inset-y-0 -right-1 w-1/4 bg-gradient-to-l from-[#101010]"></div>
+            <div className="pointer-events-none absolute inset-y-0 -left-1 w-1/4 bg-gradient-to-r from-[#101010]"></div>
+          </div>
+        </AnimationContainer>
+      </div>
+
     </Wrapper>
   );
 };
