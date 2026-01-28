@@ -180,30 +180,6 @@ const Hero = () => {
         ))}
       </div>
 
-      <div className="flex flex-col items-center justify-center w-full pb-20">
-        <AnimationContainer animation="fadeUp" delay={1.4} className="w-full text-center">
-          <p className="text-xs md:text-sm text-gray-500 mb-6 uppercase tracking-widest">
-            Organized by IEEE Computer Society Student Branch Chapter of SLTC
-          </p>
-
-          <div className="w-full relative mx-auto">
-            <Marquee className="[--duration:40s] [--gap:3rem] select-none">
-              {companies.map((Logo, i) => (
-                <div
-                  key={i}
-                  className="flex items-center justify-center h-12 sm:h-16"
-                >
-                  <Logo className="w-auto h-5 sm:h-7 opacity-40 hover:opacity-100 transition duration-500" />
-                </div>
-              ))}
-            </Marquee>
-
-            {/* EDGE GRADIENTS */}
-            <div className="pointer-events-none absolute inset-y-0 -right-1 w-1/4 bg-gradient-to-l from-[#101010]"></div>
-            <div className="pointer-events-none absolute inset-y-0 -left-1 w-1/4 bg-gradient-to-r from-[#101010]"></div>
-          </div>
-        </AnimationContainer>
-      </div>
 
     </Wrapper>
   );

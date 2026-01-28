@@ -1,8 +1,11 @@
 "use client";
 
+import { useState, useEffect, useRef } from "react";
+import { useInView } from "framer-motion";
 import AnimationContainer from "./global/animation-container";
 import Wrapper from "./global/wrapper";
 import SectionBadge from "./ui/section-badge";
+import NumberFlow from "@number-flow/react";
 
 const Stats = () => {
     const stats = [
@@ -33,18 +36,42 @@ const Stats = () => {
                     </h2>
                 </AnimationContainer>
 
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-16 w-full max-w-4xl">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-16 w-full max-w-5xl">
                     {stats.map((stat, index) => (
-                        <AnimationContainer key={index} animation="fadeUp" delay={0.4 + index * 0.1}>
-                            <div className="flex flex-col items-center justify-center p-8 rounded-3xl bg-white/[0.03] border border-white/[0.08] backdrop-blur-sm">
-                                <span className="text-5xl md:text-6xl font-black text-orange-500 mb-2">{stat.value}</span>
-                                <span className="text-gray-400 text-lg uppercase tracking-widest">{stat.label}</span>
-                            </div>
-                        </AnimationContainer>
+                        <StatItem key={index} stat={stat} index={index} />
                     ))}
                 </div>
             </div>
         </Wrapper>
+    );
+};
+
+const StatItem = ({ stat, index }: { stat: { label: string, value: string }, index: number }) => {
+    const ref = useRef(null);
+    const isInView = useInView(ref, { once: true, amount: 0.5 });
+
+    const [count, setCount] = useState(0);
+    const numericValue = parseInt(stat.value);
+
+    useEffect(() => {
+        if (isInView) {
+            setCount(numericValue);
+        }
+    }, [isInView, numericValue]);
+
+    return (
+        <AnimationContainer animation="fadeUp" delay={0.4 + index * 0.1}>
+            <div ref={ref} className="flex flex-col items-center justify-center p-8 sm:p-12 rounded-[2rem] bg-white/[0.03] border border-white/[0.08] backdrop-blur-sm group hover:bg-white/[0.05] transition-all duration-300">
+                <div className="flex items-baseline gap-1 text-5xl md:text-7xl font-folkra font-medium text-orange-500 mb-2">
+                    <NumberFlow
+                        value={isInView ? numericValue : 1}
+                        style={{ '--number-flow-duration': '4s' } as React.CSSProperties}
+                    />
+                    <span className="text-3xl md:text-4xl opacity-80">+</span>
+                </div>
+                <span className="text-gray-400 text-sm sm:text-base font-medium uppercase tracking-[0.2em]">{stat.label}</span>
+            </div>
+        </AnimationContainer>
     );
 };
 

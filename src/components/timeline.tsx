@@ -1,6 +1,10 @@
+"use client";
+
 import AnimationContainer from './global/animation-container';
 import Wrapper from "./global/wrapper";
 import SectionBadge from './ui/section-badge';
+import { cn } from "@/lib";
+import { motion, AnimatePresence } from "framer-motion";
 
 const TIMELINE = () => {
     const timelineData = [
@@ -46,32 +50,72 @@ const TIMELINE = () => {
                 </AnimationContainer>
             </div>
 
-            {/* Timeline pipeline */}
-            <div className="relative flex flex-col lg:flex-row items-center justify-between gap-12 lg:gap-0">
+            {/* Vertical Timeline Pipeline */}
+            <div className="relative max-w-5xl mx-auto px-4">
 
-                {/* Horizontal connecting line for large screens */}
-                <div className="hidden lg:block absolute top-1/2 left-4 right-4 h-1 bg-gradient-to-r from-primary to-orange-400 -z-10 rounded-full"></div>
+                {/* Central Vertical Line (Desktop/Mobile) */}
+                <div className="absolute left-1/2 top-0 bottom-0 w-1 bg-gradient-to-b from-orange-600/0 via-orange-500 to-orange-400/0 -translate-x-1/2 -z-10 rounded-full shadow-[0_0_15px_rgba(249,115,22,0.2)]">
+                    <div className="absolute inset-0 bg-white/10 animate-pulse rounded-full" />
+                </div>
 
-                {timelineData.map((item, index) => (
-                    <AnimationContainer key={index} animation="fadeUp" delay={0.5 + index * 0.2}>
-                        <div className="flex flex-col items-center text-center relative lg:flex-1">
-                            {/* Dot / marker */}
-                            <div className="w-8 h-8 rounded-full bg-gradient-to-b from-primary to-orange-400 border-4 border-neutral-900 mb-4 shadow-lg"></div>
+                <div className="flex flex-col gap-24 relative">
+                    {timelineData.map((item, index) => (
+                        <div
+                            key={index}
+                            className="w-full relative"
+                        >
+                            <div className={cn(
+                                "flex flex-row items-center justify-center w-full relative",
+                                index % 2 === 0 ? "flex-row" : "flex-row-reverse"
+                            )}>
+                                {/* Card Side */}
+                                <div className={cn(
+                                    "w-1/2 flex items-center",
+                                    index % 2 === 0 ? "justify-end pr-6 sm:pr-16" : "justify-start pl-6 sm:pl-16"
+                                )}>
+                                    <div className={cn(
+                                        "bg-neutral-900/40 border border-white/5 backdrop-blur-2xl rounded-[1.5rem] sm:rounded-[2.5rem] p-4 sm:p-8 md:p-10 w-full max-w-sm shadow-2xl transition-all duration-500 hover:border-orange-500/40 hover:-translate-y-2 group relative overflow-hidden",
+                                        index % 2 === 0 ? "text-right" : "text-left"
+                                    )}>
+                                        <div className="absolute -inset-px bg-gradient-to-br from-orange-500/10 to-transparent rounded-[1.5rem] sm:rounded-[2.5rem] opacity-0 group-hover:opacity-100 transition-opacity" />
 
-                            {/* Card / info box */}
-                            <div className="bg-[#191919] border border-white/5 backdrop-blur-3xl rounded-3xl p-6 md:p-8 min-h-[160px] flex flex-col justify-center items-center text-center shadow-lg max-w-xs hover:border-orange-500/30 transition-colors duration-300">
-                                <span className="text-orange-500 text-xs font-bold uppercase mb-2">{item.phase}</span>
-                                <h3 className="text-lg md:text-xl font-medium text-white">{item.title}</h3>
-                                <p className="text-sm md:text-base text-muted-foreground mt-2">{item.date}</p>
+                                        <span className="text-orange-500 text-[9px] sm:text-[10px] font-bold uppercase tracking-[0.2em] mb-2 sm:mb-4 block">{item.phase}</span>
+                                        <h3 className="text-sm sm:text-lg lg:text-2xl font-medium text-white group-hover:text-orange-400 transition-colors leading-tight">
+                                            {item.title}
+                                        </h3>
+                                        <div className={cn(
+                                            "h-px w-6 sm:w-10 bg-orange-500/20 my-3 sm:my-5 transition-all group-hover:w-16",
+                                            index % 2 === 0 ? "ml-auto" : "mr-auto"
+                                        )} />
+                                        <p className="text-[10px] sm:text-sm md:text-base text-gray-400 font-medium tracking-tight bg-white/5 inline-block px-3 sm:px-4 py-1 sm:py-1.5 rounded-full">{item.date}</p>
+                                    </div>
+
+                                    {/* Connecting Line (Branch - Static) */}
+                                    <div className={cn(
+                                        "absolute top-1/2 h-px bg-gradient-to-r from-orange-500 via-orange-500/20 to-transparent z-0",
+                                        index % 2 === 0
+                                            ? "right-[50%] left-[calc(100%-8rem)] sm:left-[calc(100%-10rem)]"
+                                            : "left-[50%] right-[calc(100%-8rem)] sm:right-[calc(100%-10rem)]"
+                                    )} />
+                                </div>
+
+                                {/* Central Node - Static Glow */}
+                                <div className="absolute left-1/2 -translate-x-1/2 flex items-center justify-center z-30">
+                                    <div className="w-12 h-12 rounded-full bg-neutral-950 border border-orange-500/60 flex items-center justify-center shadow-[0_0_40px_rgba(249,115,22,0.4)] transition-all duration-500 group-hover:scale-125 relative">
+                                        {/* Outer Glow Aura (Static) */}
+                                        <div className="absolute inset-[-8px] rounded-full bg-orange-600/10 blur-xl" />
+                                    </div>
+
+                                    {/* Core glowing dot */}
+                                    <div className="absolute w-5 h-5 rounded-full bg-orange-500 shadow-[0_0_20px_#f97316,0_0_40px_rgba(249,115,22,0.6)] z-40" />
+                                </div>
+
+                                {/* Empty Side Spacer */}
+                                <div className="w-1/2" />
                             </div>
-
-                            {/* Vertical line between dots for mobile */}
-                            {index < timelineData.length - 1 && (
-                                <div className="lg:hidden w-1 h-16 bg-gradient-to-b from-primary to-orange-400 mt-4 rounded-full shadow-md"></div>
-                            )}
                         </div>
-                    </AnimationContainer>
-                ))}
+                    ))}
+                </div>
             </div>
         </Wrapper>
     );

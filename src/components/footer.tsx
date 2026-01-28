@@ -13,11 +13,10 @@ const QUICK_LINKS = [
 ];
 
 const SOCIAL_LINKS = [
-    { icon: Facebook, href: "#" },
-    { icon: Twitter, href: "#" },
-    { icon: Instagram, href: "#" },
-    { icon: Linkedin, href: "#" },
-    { icon: Youtube, href: "#" },
+    { icon: Facebook, href: "https://web.facebook.com/sltcieeecs/?_rdc=1&_rdr#" },
+    { icon: Instagram, href: "https://www.instagram.com/sltcieeecs/?hl=en" },
+    { icon: Linkedin, href: "https://linkedin.com/company/sltcieeecs?originalSubdomain=lk" },
+    { icon: Youtube, href: "https://youtube.com/playlist?list=PLEuhnn5mTJsGbcFqRC5ZZUS8x2oYqcVkB&si=BbqcvrqoF9NVJKZc" },
 ];
 
 const Footer = () => {

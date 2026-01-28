@@ -65,20 +65,43 @@ const formSchema = z.object({
 });
 
 const UNIVERSITIES = [
+    // UGC Public Universities
     "University of Colombo",
-    "University of Moratuwa",
-    "University of Kelaniya",
-    "University of Sri Jayewardenepura",
     "University of Peradeniya",
-    "University of Ruhuna",
+    "University of Sri Jayewardenepura",
+    "University of Kelaniya",
+    "University of Moratuwa",
     "University of Jaffna",
-    "Informatics Institute of Technology (IIT)",
-    "SLIIT",
+    "University of Ruhuna",
+    "Eastern University, Sri Lanka",
+    "South Eastern University of Sri Lanka",
+    "Rajarata University of Sri Lanka",
+    "Sabaragamuwa University of Sri Lanka",
+    "Wayamba University of Sri Lanka",
+    "Uva Wellassa University",
+    "University of the Visual & Performing Arts",
+    "University of Vavuniya",
+    "University of Vocational Technology (UoVT)",
+    "Open University of Sri Lanka (OUSL)",
+
+    // Other Public/Statutory Universities
+    "General Sir John Kotelawala Defence University (KDU)",
+    "Ocean University of Sri Lanka",
+    "Bhiksu University of Sri Lanka",
+    "Buddhist and Pali University of Sri Lanka",
+
+    // Private / Non-State Universities
+    "Sri Lanka Institute of Information Technology (SLIIT)",
     "NSBM Green University",
-    "CINEC Campus",
-    "Horizon Campus",
+    "Sri Lanka Technology Campus (SLTC)",
     "Saegis Campus",
+    "Informatics Institute of Technology (IIT)",
+    "Horizon Campus",
+    "CINEC Campus",
     "ICBT Campus",
+    "APIIT Sri Lanka",
+    "KIU University",
+
     "Other",
 ];
 
